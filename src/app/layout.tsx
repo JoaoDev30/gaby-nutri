@@ -19,7 +19,7 @@ const manrope = Manrope({
 
 const title = "Gabrielly Fernandes · Nutricionista | Nutrição individualizada";
 const description =
-  "Acompanhamento nutricional individualizado, que respeita sua rotina, suas preferências e seus objetivos. Avaliação com bioimpedância e plano alimentar personalizado. Agende pelo WhatsApp.";
+  "Acompanhamento nutricional individualizado, que respeita sua rotina, suas preferências e seus objetivos. Atendimento online e plano alimentar personalizado. Agende pelo WhatsApp.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),

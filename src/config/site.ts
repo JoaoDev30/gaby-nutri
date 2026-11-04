@@ -1,7 +1,7 @@
 /**
  * Configuração central do site.
- * Tudo que depende de confirmação da nutricionista está aqui ou marcado com <Pending>.
- * Antes de publicar: revise cada item com `pending: true` / `null`.
+ * Dados confirmados pela Gabrielly: CRN, WhatsApp, Instagram e atendimento online.
+ * Foto, depoimentos e cidade ficam vazios: o site se adapta e não exibe esses blocos.
  */
 
 export const siteConfig = {
@@ -13,21 +13,24 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
 
   whatsapp: {
-    /** Somente dígitos, com DDI + DDD. Informado na arte de referência — confirmar antes de publicar. */
+    /** Somente dígitos, com DDI + DDD. */
     number: "5561995032188",
     display: "(61) 99503-2188",
     message:
       "Olá, Gabrielly! Conheci seu site e gostaria de saber mais sobre o agendamento de uma consulta nutricional.",
   },
 
-  /** Número do CRN — a confirmar (null exibe marcador "a confirmar"). */
-  crn: null as string | null,
+  /** Registro no Conselho Regional de Nutricionistas. */
+  crn: "25785/P",
 
-  /** Cidade/região de atendimento — a confirmar (usada em SEO local quando definida). */
+  /** Modalidade de atendimento exibida no site. */
+  attendance: "Atendimento online",
+
+  /** Cidade (só para SEO local, caso um dia haja atendimento presencial). O atendimento é online. */
   city: null as string | null,
 
-  /** Instagram oficial — a confirmar. Ex.: "https://instagram.com/usuario" */
-  instagram: null as string | null,
+  /** Instagram oficial. */
+  instagram: "https://www.instagram.com/nutri_gabriellyfernandes/" as string | null,
 
   /**
    * Foto profissional real da nutricionista.
@@ -42,7 +45,7 @@ export const siteConfig = {
   testimonials: [] as { quote: string; author: string }[],
 
   /** Exibe marcadores visuais em conteúdos ainda não confirmados. Desligue só quando tudo estiver validado. */
-  showPendingMarkers: true,
+  showPendingMarkers: false,
 } as const;
 
 export function whatsappHref(message: string = siteConfig.whatsapp.message) {

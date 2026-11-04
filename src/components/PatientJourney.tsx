@@ -7,11 +7,11 @@ import { CitrusSlice } from "./ui/Botanical";
 import { gsap, MOTION_OK, DESKTOP, useIsoLayoutEffect } from "@/lib/gsap";
 import { EASE, SCRUB } from "@/lib/motion";
 
-/** Etapas sujeitas à validação da profissional — sem duração, frequência ou detalhes operacionais. */
+/** Etapas do atendimento online — sem duração, frequência ou detalhes operacionais. */
 const steps = [
   { n: "01", title: "Entre em contato", text: "Toque em agendar e envie uma mensagem pelo WhatsApp." },
   { n: "02", title: "Converse sobre seu agendamento", text: "Tire suas dúvidas e combine o melhor horário para você." },
-  { n: "03", title: "Realize sua avaliação e consulta", text: "Um momento para conhecer sua história, sua rotina e seus objetivos." },
+  { n: "03", title: "Faça sua consulta online", text: "Um momento para conhecer sua história, sua rotina e seus objetivos." },
   { n: "04", title: "Inicie seu acompanhamento personalizado", text: "Com um plano feito para você, começa a construção de novos hábitos." },
 ];
 

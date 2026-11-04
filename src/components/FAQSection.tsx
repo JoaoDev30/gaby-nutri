@@ -2,23 +2,19 @@
 
 import { useId, useState } from "react";
 import { SplitText } from "./ui/SplitText";
-import { Pending } from "./ui/Pending";
 import { WhatsAppCTA } from "./ui/CTAButton";
 import { siteConfig } from "@/config/site";
 import { track } from "@/lib/analytics";
 
 type QA = { q: string; a: React.ReactNode };
 
-/** Respostas que dependem do serviço estão marcadas com <Pending> para validação. */
 const faqs: QA[] = [
   {
     q: "Como funciona a primeira consulta?",
     a: (
       <>
         <p>Na primeira consulta, conversamos sobre sua história, sua rotina, suas preferências e seus objetivos — é a partir disso que o acompanhamento é construído.</p>
-        <p className="mt-3">
-          <Pending label="validar com a Gabrielly">Duração, etapas da avaliação e o que levar no dia.</Pending>
-        </p>
+        <p className="mt-3">Ela acontece online: você participa de onde estiver, no horário combinado pelo WhatsApp.</p>
       </>
     ),
   },
@@ -53,11 +49,11 @@ const faqs: QA[] = [
     ),
   },
   {
-    q: "O atendimento é presencial ou online?",
+    q: "Como funciona o atendimento online?",
     a: (
-      <Pending block label="validar com a Gabrielly">
-        <p>Informar as modalidades disponíveis (presencial, online ou ambas) e, se houver, o endereço do consultório.</p>
-      </Pending>
+      <p>
+        Todo o atendimento é online. Você faz as consultas sem precisar se deslocar, de qualquer cidade, e combina os horários diretamente pelo WhatsApp.
+      </p>
     ),
   },
 ];

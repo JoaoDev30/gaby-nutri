@@ -1,10 +1,9 @@
 import { siteConfig } from "@/config/site";
 import { SplitText } from "./ui/SplitText";
-import { Pending } from "./ui/Pending";
 
 /**
  * 07 — Confiança. Só credibilidade real: compromissos da abordagem (do posicionamento da marca),
- * dados profissionais verificáveis e espaço para depoimentos autorizados.
+ * dados profissionais verificáveis e, quando houver, depoimentos autorizados.
  * Normas: depoimentos devem seguir o Código de Ética do Nutricionista e as resoluções do CFN
  * sobre publicidade (sem antes/depois, sem promessa de resultado).
  */
@@ -37,12 +36,12 @@ export function TrustSection() {
           <dl className="mt-10 grid max-w-[28rem] grid-cols-2 gap-6 border-t border-line pt-6 text-sm" data-fade>
             <div>
               <dt className="eyebrow text-[0.65rem] text-sage-deep">Registro profissional</dt>
-              <dd className="mt-2 font-semibold text-forest-deep">CRN {crn ?? <Pending>nº</Pending>}</dd>
+              <dd className="mt-2 font-semibold text-forest-deep">CRN {crn}</dd>
             </div>
             <div>
               <dt className="eyebrow text-[0.65rem] text-sage-deep">Atendimento</dt>
               <dd className="mt-2 font-semibold text-forest-deep">
-                {siteConfig.city ?? <Pending>cidade / modalidade</Pending>}
+                Online
               </dd>
             </div>
           </dl>
@@ -65,7 +64,7 @@ export function TrustSection() {
             ))}
           </ul>
 
-          {testimonials.length > 0 ? (
+          {testimonials.length > 0 && (
             <div className="mt-14 grid gap-8 sm:grid-cols-2">
               {testimonials.map((t) => (
                 <figure key={t.author} data-fade>
@@ -74,15 +73,7 @@ export function TrustSection() {
                 </figure>
               ))}
             </div>
-          ) : siteConfig.showPendingMarkers ? (
-            <div className="mt-14" data-fade>
-              <Pending block label="espaço reservado · depoimentos">
-                <p className="text-sm leading-relaxed text-ink-soft">
-                  Área preparada para depoimentos reais, autorizados por escrito pelos pacientes e em conformidade com as normas do CFN. Nenhum depoimento será exibido até que existam.
-                </p>
-              </Pending>
-            </div>
-          ) : null}
+          )}
         </div>
       </div>
     </section>

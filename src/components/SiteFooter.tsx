@@ -1,5 +1,4 @@
 import { navItems, siteConfig, whatsappHref } from "@/config/site";
-import { Pending } from "./ui/Pending";
 
 export function SiteFooter() {
   return (
@@ -10,7 +9,7 @@ export function SiteFooter() {
             Gabrielly <em className="font-light">Fernandes</em>
           </p>
           <p className="mt-3 text-sm">
-            Nutricionista · CRN {siteConfig.crn ?? <Pending>nº</Pending>}
+            Nutricionista · CRN {siteConfig.crn}
           </p>
           <p className="serif-italic mt-6 text-lg text-sage">{siteConfig.tagline}</p>
         </div>
@@ -39,7 +38,7 @@ export function SiteFooter() {
                 <a href={siteConfig.instagram} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-cream">Instagram</a>
               </li>
             )}
-            <li>{siteConfig.city ?? <Pending>local de atendimento</Pending>}</li>
+            <li>{siteConfig.attendance}</li>
           </ul>
         </div>
 

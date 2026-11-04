@@ -13,9 +13,9 @@ import { EASE } from "@/lib/motion";
 const services = [
   {
     n: "01",
-    title: "Avaliação corporal com bioimpedância",
-    lead: "Conheça seu corpo em detalhes.",
-    body: "A bioimpedância ajuda a entender a sua composição corporal e serve de ponto de partida para decisões mais precisas.",
+    title: "Avaliação nutricional completa",
+    lead: "Entender você antes de montar o plano.",
+    body: "Uma conversa detalhada sobre sua rotina, seus hábitos, sua saúde e seus objetivos é o ponto de partida para decisões mais precisas.",
     img: { src: "/media/mesa-variada.jpg", alt: "Ingredientes variados dispostos sobre a mesa" },
   },
   {

@@ -2,7 +2,6 @@ import Image from "next/image";
 import { siteConfig } from "@/config/site";
 import { SplitText } from "./ui/SplitText";
 import { WhatsAppCTA } from "./ui/CTAButton";
-import { Pending } from "./ui/Pending";
 import { Sprig, Leaf } from "./ui/Botanical";
 
 /** 05 — Apresentação da nutricionista. Sem currículo inventado: dados reais entram por siteConfig. */
@@ -20,12 +19,8 @@ export function AboutSection() {
             {portrait ? (
               <Image src={portrait.src} alt={portrait.alt} fill sizes="(min-width: 1024px) 40vw, 80vw" className="object-cover" />
             ) : (
-              <div className="absolute inset-0 flex flex-col items-center justify-end gap-4 p-8 text-center">
-                <Sprig className="absolute top-[16%] left-1/2 h-[46%] w-auto -translate-x-1/2 text-forest/25" scroll />
-                <span className="pending-tag">foto a inserir</span>
-                <p className="max-w-[18rem] text-sm text-forest/70">
-                  Fotografia profissional real da Gabrielly — retrato com luz natural, fundo neutro.
-                </p>
+              <div aria-hidden className="absolute inset-0">
+                <Sprig className="absolute top-1/2 left-1/2 h-[58%] w-auto -translate-x-1/2 -translate-y-1/2 text-forest/25" scroll />
               </div>
             )}
           </div>
@@ -33,7 +28,7 @@ export function AboutSection() {
             <span className="size-2 rounded-full bg-sage-deep" aria-hidden />
             <span className="text-sm font-semibold text-forest-deep">
               Nutricionista · CRN{" "}
-              {crn ? crn : <Pending label="a confirmar">nº</Pending>}
+              {crn}
             </span>
           </figcaption>
         </figure>
@@ -54,11 +49,9 @@ export function AboutSection() {
             <p data-fade>
               Acredito em uma nutrição que cabe na vida real. Meu trabalho é entender sua rotina, seus objetivos e a sua relação com a comida para construir, junto com você, escolhas que façam sentido — sem fórmulas prontas.
             </p>
-            <div data-fade>
-              <Pending block label="texto a ser fornecido pela Gabrielly">
-                Breve apresentação pessoal: formação, trajetória e o que motivou a escolha pela nutrição. (2 a 3 frases, em primeira pessoa.)
-              </Pending>
-            </div>
+            <p data-fade>
+              Atendo de forma online, para que o cuidado com a alimentação caiba na sua agenda e chegue até você onde estiver.
+            </p>
             <blockquote data-fade className="relative border-l border-sage pl-6">
               <p className="serif-italic text-[1.45rem] leading-snug text-forest-deep">“{siteConfig.tagline}”</p>
             </blockquote>
