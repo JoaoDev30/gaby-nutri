@@ -1,7 +1,7 @@
 /**
  * Configuração central do site.
  * Dados confirmados pela Gabrielly: CRN, WhatsApp, Instagram e atendimento online.
- * Foto, depoimentos e cidade ficam vazios: o site se adapta e não exibe esses blocos.
+ * Depoimentos e cidade ficam vazios: o site se adapta e não exibe esses blocos.
  */
 
 export const siteConfig = {
@@ -36,7 +36,10 @@ export const siteConfig = {
    * Foto profissional real da nutricionista.
    * Ex.: { src: "/media/gabrielly.jpg", alt: "Gabrielly Fernandes, nutricionista, sorrindo em seu consultório" }
    */
-  portrait: null as { src: string; alt: string } | null,
+  portrait: {
+    src: "/media/gabrielly.jpg",
+    alt: "Gabrielly Fernandes, nutricionista, sorrindo, de jaleco branco com seu nome bordado",
+  } as { src: string; alt: string } | null,
 
   /**
    * Depoimentos reais, autorizados por escrito e em conformidade com as normas do CFN.

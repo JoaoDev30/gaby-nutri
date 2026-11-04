@@ -17,7 +17,7 @@ export function AboutSection() {
         <figure className="relative col-span-12 sm:col-span-8 sm:col-start-3 lg:col-span-5 lg:col-start-1">
           <div data-clip className="relative aspect-[4/5] overflow-hidden rounded-t-full bg-[#dce8e1]">
             {portrait ? (
-              <Image src={portrait.src} alt={portrait.alt} fill sizes="(min-width: 1024px) 40vw, 80vw" className="object-cover" />
+              <Image src={portrait.src} alt={portrait.alt} fill sizes="(min-width: 1024px) 40vw, 80vw" className="object-cover object-[50%_20%]" />
             ) : (
               <div aria-hidden className="absolute inset-0">
                 <Sprig className="absolute top-1/2 left-1/2 h-[58%] w-auto -translate-x-1/2 -translate-y-1/2 text-forest/25" scroll />
