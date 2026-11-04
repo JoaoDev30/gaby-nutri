@@ -14,7 +14,7 @@ const items: Item[] = [
     src: "/media/mesa-variada.jpg",
     alt: "Mesa com iogurte e granola, ovos cozidos, abacate, kiwi, laranja, morangos, mirtilos e pão integral",
     label: "Cor",
-    shape: "aspect-[4/3] rounded-[2px]",
+    shape: "aspect-[4/3]",
   },
   { kind: "note", text: "Sem *proibições.*", tone: "forest" },
   {
@@ -22,14 +22,14 @@ const items: Item[] = [
     src: "/media/ingredientes-suspensos.jpg",
     alt: "Abacate, morangos, ovos, kiwi e laranja suspensos no ar sobre uma tigela",
     label: "Textura",
-    shape: "aspect-[4/5] rounded-t-full",
+    shape: "aspect-[4/5]",
   },
   {
     kind: "photo",
     src: "/media/bowl-detalhe.jpg",
     alt: "Tigela de iogurte com granola cercada de frutas",
     label: "Sabor",
-    shape: "aspect-[4/5] rounded-[2px]",
+    shape: "aspect-[4/5]",
   },
   { kind: "note", text: "Seus favoritos *continuam* no prato.", tone: "apricot" },
   {
@@ -37,14 +37,14 @@ const items: Item[] = [
     src: "/media/prato-poster.jpg",
     alt: "Prato com frango grelhado, arroz, feijão, batata-doce, legumes e folhas",
     label: "Equilíbrio",
-    shape: "aspect-square rounded-full",
+    shape: "aspect-square",
   },
   {
     kind: "photo",
     src: "/media/frutas-suspensas.jpg",
     alt: "Frutas frescas suspensas no ar",
     label: "Leveza",
-    shape: "aspect-[4/5] rounded-[2px]",
+    shape: "aspect-[4/5]",
   },
   { kind: "note", text: "Escolhas que fazem *sentido* para você.", tone: "mist" },
   {
@@ -52,7 +52,7 @@ const items: Item[] = [
     src: "/media/ingredientes-em-movimento.jpg",
     alt: "Frutas, ovos e oleaginosas em movimento acima de uma tigela",
     label: "Prazer",
-    shape: "aspect-[4/5] rounded-b-full",
+    shape: "aspect-[4/5]",
   },
 ];
 
