@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useRef } from "react";
 import { SplitText } from "./ui/SplitText";
-import { CitrusSlice, Leaf, Strike } from "./ui/Botanical";
+import { StoryGallery } from "./StoryGallery";
+import { Leaf, Strike } from "./ui/Botanical";
 import { gsap, MOTION_OK, useIsoLayoutEffect } from "@/lib/gsap";
 import { EASE, FILL, SCRUB } from "@/lib/motion";
 
@@ -56,7 +56,7 @@ export function StorySection() {
 
   return (
     <section ref={root} aria-labelledby="story-title" className="relative overflow-hidden bg-cream pt-20 pb-24 lg:pt-36 lg:pb-40">
-      <div className="mx-auto grid max-w-[1440px] grid-cols-12 gap-x-6 gap-y-10 px-[var(--gutter)]">
+      <div className="relative mx-auto grid max-w-[1440px] grid-cols-12 gap-x-6 gap-y-10 px-[var(--gutter)]">
         <p className="eyebrow col-span-12 flex items-center gap-3 text-sage-deep" data-fade>
           <span className="tabular-nums">01</span>
           <span aria-hidden className="h-px w-8 bg-sage-deep/60" />
@@ -86,42 +86,11 @@ export function StorySection() {
           </p>
         </div>
 
-        {/* Composição editorial — variedade e prazer à mesa */}
-        <div className="relative col-span-12 mt-6 grid grid-cols-12 gap-x-6 gap-y-8 lg:mt-16">
-          <figure className="col-span-12 md:col-span-8 lg:col-span-7">
-            <div data-clip className="relative aspect-[4/3] overflow-hidden rounded-[2px]">
-              <div data-parallax="0.12" className="absolute -inset-y-[8%] inset-x-0">
-                <Image
-                  src="/media/mesa-variada.jpg"
-                  alt="Mesa com iogurte e granola, ovos cozidos, abacate, kiwi, laranja, morangos, mirtilos e pão integral"
-                  fill
-                  sizes="(min-width: 1024px) 56vw, (min-width: 768px) 66vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-            </div>
-            <figcaption className="mt-3 flex justify-between text-xs text-ink-soft" data-fade>
-              <span>Cor, textura, sabor.</span>
-              <span className="serif-italic text-sm">Tudo pode caber no prato.</span>
-            </figcaption>
-          </figure>
-
-          <figure className="col-span-8 col-start-5 md:col-span-4 md:col-start-9 lg:col-span-4 lg:col-start-9 lg:mt-40">
-            <div data-clip className="relative aspect-[4/5] overflow-hidden rounded-t-full">
-              <Image
-                src="/media/ingredientes-suspensos.jpg"
-                alt="Abacate, morangos, ovos, kiwi e laranja suspensos no ar sobre uma tigela"
-                fill
-                sizes="(min-width: 768px) 30vw, 66vw"
-                className="object-cover"
-              />
-            </div>
-          </figure>
-
-          <CitrusSlice className="pointer-events-none absolute top-[58%] left-[2%] hidden size-24 text-apricot/60 md:block lg:top-auto lg:bottom-[-6%] lg:left-[60%]" scroll />
-          <Leaf className="pointer-events-none absolute -top-10 right-[4%] h-28 w-auto text-sage-deep/50" scroll />
-        </div>
+        <Leaf className="pointer-events-none absolute right-[4%] -bottom-6 hidden h-28 w-auto text-sage-deep/50 lg:block" scroll />
       </div>
+
+      {/* Galeria horizontal em loop — variedade e prazer à mesa (sangra até as bordas) */}
+      <StoryGallery />
     </section>
   );
 }
