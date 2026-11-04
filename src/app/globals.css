@@ -1,26 +1,148 @@
 @import "tailwindcss";
 
+/* ───────────── Design tokens ───────────── */
+@theme {
+  --color-cream: #f7f5ed;
+  --color-cream-deep: #efeadb;
+  --color-mist: #e8eedb;
+  --color-sage: #a5b88b;
+  --color-sage-deep: #52673f; /* AA em creme e verde-claro */
+  --color-forest: #294a35;
+  --color-forest-deep: #1c3324;
+  --color-ink: #202a22;
+  --color-ink-soft: #4a574d;
+  --color-apricot: #d9824a;
+  --color-line: rgb(32 42 34 / 0.14);
+
+  --font-serif: var(--font-fraunces), "Georgia", serif;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --header-h: 4.5rem;
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h);
+  -webkit-text-size-adjust: 100%;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection { background: var(--color-sage); color: var(--color-forest-deep); }
+
+/* Grão de papel discreto — textura natural, sem imagem extra */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.16 0 0 0 0 0.13 0 0 0 0.05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* ───────────── Tipografia ───────────── */
+.display {
+  font-family: var(--font-serif);
+  font-variation-settings: "SOFT" 50, "opsz" 120;
+  font-weight: 380;
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+}
+.display em, .serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-variation-settings: "SOFT" 100, "opsz" 120;
+  font-weight: 340;
+}
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.lede { font-size: clamp(1.05rem, 0.4vw + 0.98rem, 1.25rem); line-height: 1.6; }
+
+/* ───────────── Foco acessível ───────────── */
+:where(a, button, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-forest);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.on-dark :where(a, button):focus-visible { outline-color: var(--color-cream); }
+
+.skip-link {
+  position: fixed; left: 1rem; top: -4rem; z-index: 100;
+  background: var(--color-forest); color: var(--color-cream);
+  padding: 0.75rem 1.25rem; border-radius: 999px; font-weight: 600;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 1rem; }
+
+/* ───────────── Estados iniciais de animação ─────────────
+   Só valem quando <html> tem .motion (JS ativo + sem movimento reduzido).
+   Sem JS ou com prefers-reduced-motion, tudo aparece normalmente. */
+.split-word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.split-word > span { display: inline-block; will-change: transform; }
+
+.motion [data-split] .split-word > span { transform: translateY(110%); }
+.motion [data-fade] { opacity: 0; transform: translateY(18px); }
+.motion [data-clip] { clip-path: inset(100% 0 0 0); }
+.motion [data-hero] { opacity: 0; }
+
+/* Desenho de traços botânicos */
+.draw path, .draw circle, .draw line { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.motion .draw path, .motion .draw circle, .motion .draw line { stroke-dashoffset: 1; }
+
+/* ───────────── Marcadores de conteúdo pendente ───────────── */
+.pending {
+  background: repeating-linear-gradient(-45deg, rgb(217 130 74 / 0.10) 0 6px, transparent 6px 12px);
+  outline: 1px dashed rgb(217 130 74 / 0.7);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.pending-tag {
+  display: inline-block;
+  font: 600 0.625rem/1 var(--font-sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a4718;
+  background: #f6dcc8;
+  border-radius: 999px;
+  padding: 0.3em 0.6em;
+  vertical-align: middle;
+  margin-inline: 0.35em;
+}
+
+/* Accordion */
+.accordion-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.5s var(--ease-soft); }
+.accordion-panel[data-open="true"] { grid-template-rows: 1fr; }
+.accordion-panel > div { overflow: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  .accordion-panel { transition: none; }
+}
+
+.motion [data-strike] { stroke-dashoffset: 1; }
+
+@keyframes scrollcue {
+  0% { transform: translateY(-100%); }
+  60%, 100% { transform: translateY(220%); }
 }
