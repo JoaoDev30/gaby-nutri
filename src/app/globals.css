@@ -2,17 +2,18 @@
 
 /* ───────────── Design tokens ───────────── */
 @theme {
-  --color-cream: #f7f5ed;
-  --color-cream-deep: #efeadb;
-  --color-mist: #e8eedb;
-  --color-sage: #a5b88b;
-  --color-sage-deep: #52673f; /* AA em creme e verde-claro */
-  --color-forest: #294a35;
-  --color-forest-deep: #1c3324;
-  --color-ink: #202a22;
-  --color-ink-soft: #4a574d;
-  --color-apricot: #d9824a;
-  --color-line: rgb(32 42 34 / 0.14);
+  /* Paleta base: #183E35 · #91B5A4 · #F7F6F0 · #D5A88C · #24312C (demais tons derivados dela) */
+  --color-cream: #f7f6f0;
+  --color-cream-deep: #ece9df;
+  --color-mist: #e4ede8;
+  --color-sage: #91b5a4;
+  --color-sage-deep: #4a7262; /* sálvia escurecida: AA em creme e verde-claro */
+  --color-forest: #183e35;
+  --color-forest-deep: #122f28;
+  --color-ink: #24312c;
+  --color-ink-soft: #4e5b55;
+  --color-apricot: #d5a88c;
+  --color-line: rgb(36 49 44 / 0.14);
 
   --font-serif: var(--font-fraunces), "Georgia", serif;
   --font-sans: var(--font-manrope), system-ui, sans-serif;
@@ -148,7 +149,7 @@ html:not(.motion) :is([data-hero="chapters"], [data-hero="cue"]) { display: none
 
 .motion [data-strike] { stroke-dashoffset: 1; }
 /* Texto que se preenche: palavras visíveis desde o início, só a cor evolui. */
-.motion [data-fill] [data-split] .split-word > span { transform: none; color: rgb(32 42 34 / 0.18); }
+.motion [data-fill] [data-split] .split-word > span { transform: none; color: rgb(36 49 44 / 0.18); }
 
 @keyframes scrollcue {
   0% { transform: translateY(-100%); }

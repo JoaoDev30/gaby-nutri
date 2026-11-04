@@ -16,7 +16,7 @@ export function AboutSection() {
 
       <div className="relative mx-auto grid max-w-[1440px] grid-cols-12 gap-x-6 gap-y-12 px-[var(--gutter)] lg:items-center">
         <figure className="relative col-span-12 sm:col-span-8 sm:col-start-3 lg:col-span-5 lg:col-start-1">
-          <div data-clip className="relative aspect-[4/5] overflow-hidden rounded-t-full bg-[#dfe6cf]">
+          <div data-clip className="relative aspect-[4/5] overflow-hidden rounded-t-full bg-[#dce8e1]">
             {portrait ? (
               <Image src={portrait.src} alt={portrait.alt} fill sizes="(min-width: 1024px) 40vw, 80vw" className="object-cover" />
             ) : (

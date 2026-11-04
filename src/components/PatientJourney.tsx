@@ -29,7 +29,7 @@ export function PatientJourney() {
       });
       tl.fromTo(q("[data-line]"), axis === "x" ? { scaleX: 0 } : { scaleY: 0 }, { scaleX: 1, scaleY: 1, ease: EASE.scroll, duration: 4 }, 0);
       q("[data-step]").forEach((step, i) => {
-        tl.to(step.querySelector("[data-node]"), { backgroundColor: "#f7f5ed", scale: 1, duration: 0.3 }, i * 1.1)
+        tl.to(step.querySelector("[data-node]"), { backgroundColor: "#f7f6f0", scale: 1, duration: 0.3 }, i * 1.1)
           .fromTo(step.querySelector("[data-node-ring]"), { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4 }, i * 1.1)
           .fromTo(step.querySelectorAll("[data-step-text]"), { opacity: 0.15, y: 14 }, { opacity: 1, y: 0, stagger: 0.08, duration: 0.5 }, i * 1.1);
       });

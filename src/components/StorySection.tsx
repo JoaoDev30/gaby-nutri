@@ -27,7 +27,7 @@ export function StorySection() {
         const cursor = fillP * (n + FILL.spread * 2) - FILL.spread;
         words.forEach((w, i) => {
           const d = Math.min(1, Math.max(0, (cursor - i) / FILL.spread));
-          w.style.color = `rgb(32 42 34 / ${(FILL.from + d * (1 - FILL.from)).toFixed(3)})`;
+          w.style.color = `rgb(36 49 44 / ${(FILL.from + d * (1 - FILL.from)).toFixed(3)})`;
         });
         if (strike) strike.style.strokeDashoffset = String(1 - Math.min(1, Math.max(0, (p - 0.78) / 0.22)));
       };
@@ -43,9 +43,9 @@ export function StorySection() {
       // Transição de fundo creme → verde muito claro, conectando com a próxima seção.
       gsap.fromTo(
         root.current,
-        { backgroundColor: "#f7f5ed" },
+        { backgroundColor: "#f7f6f0" },
         {
-          backgroundColor: "#e8eedb",
+          backgroundColor: "#e4ede8",
           ease: "none",
           scrollTrigger: { trigger: root.current, start: "35% bottom", end: "bottom bottom", scrub: true },
         },
