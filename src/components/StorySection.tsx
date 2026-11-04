@@ -5,8 +5,9 @@ import { useRef } from "react";
 import { SplitText } from "./ui/SplitText";
 import { CitrusSlice, Leaf, Strike } from "./ui/Botanical";
 import { gsap, MOTION_OK, useIsoLayoutEffect } from "@/lib/gsap";
+import { EASE, FILL, SCRUB } from "@/lib/motion";
 
-/** 02 — Quebra de expectativa: a palavra "restrição" é riscada enquanto o visitante rola. */
+/** 02 — Quebra de expectativa: o título se preenche com a rolagem e "restrição" é riscada no fim. */
 export function StorySection() {
   const root = useRef<HTMLElement>(null);
 
@@ -15,13 +16,29 @@ export function StorySection() {
     mm.add(MOTION_OK, () => {
       const q = gsap.utils.selector(root);
       const title = q("[data-story-title]")[0];
+      const words = q("[data-story-title] .split-word > span");
+      const strike = root.current?.querySelector<SVGPathElement>("[data-strike]");
+      const n = words.length;
 
-      const tl = gsap.timeline({
-        scrollTrigger: { trigger: title, start: "top 80%", end: "bottom 35%", scrub: 0.8 },
+      /* Texto que se preenche (efeito 04): um "cursor" percorre as palavras com degradê de
+         FILL.spread palavras; depois o traço risca "restrição". Tudo reversível. */
+      const apply = (p: number) => {
+        const fillP = Math.min(1, p / 0.8);
+        const cursor = fillP * (n + FILL.spread * 2) - FILL.spread;
+        words.forEach((w, i) => {
+          const d = Math.min(1, Math.max(0, (cursor - i) / FILL.spread));
+          w.style.color = `rgb(32 42 34 / ${(FILL.from + d * (1 - FILL.from)).toFixed(3)})`;
+        });
+        if (strike) strike.style.strokeDashoffset = String(1 - Math.min(1, Math.max(0, (p - 0.78) / 0.22)));
+      };
+      const proxy = { p: 0 };
+      apply(0);
+      gsap.to(proxy, {
+        p: 1,
+        ease: EASE.scroll,
+        onUpdate: () => apply(proxy.p),
+        scrollTrigger: { trigger: title, start: "top 82%", end: "bottom 38%", scrub: SCRUB },
       });
-      tl.to(q("[data-story-title] .split-word > span"), { y: 0, stagger: 0.06, duration: 0.5, ease: "power3.out" })
-        .to(q("[data-strike]"), { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, ">-0.05")
-        .to(q("[data-struck]"), { color: "var(--color-sage-deep)", duration: 0.4 }, "<0.2");
 
       // Transição de fundo creme → verde muito claro, conectando com a próxima seção.
       gsap.fromTo(
@@ -46,7 +63,7 @@ export function StorySection() {
           Uma nova perspectiva
         </p>
 
-        <div className="col-span-12 lg:col-span-9" data-story-title>
+        <div className="col-span-12 lg:col-span-9" data-story-title data-fill>
           <SplitText
             id="story-title"
             auto={false}

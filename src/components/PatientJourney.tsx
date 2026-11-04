@@ -5,6 +5,7 @@ import { SplitText } from "./ui/SplitText";
 import { WhatsAppCTA } from "./ui/CTAButton";
 import { CitrusSlice } from "./ui/Botanical";
 import { gsap, MOTION_OK, DESKTOP, useIsoLayoutEffect } from "@/lib/gsap";
+import { EASE, SCRUB } from "@/lib/motion";
 
 /** Etapas sujeitas à validação da profissional — sem duração, frequência ou detalhes operacionais. */
 const steps = [
@@ -24,9 +25,9 @@ export function PatientJourney() {
       const q = gsap.utils.selector(root);
       const list = q("[data-steps]")[0];
       const tl = gsap.timeline({
-        scrollTrigger: { trigger: list, start: axis === "x" ? "top 70%" : "top 75%", end: axis === "x" ? "bottom 45%" : "bottom 60%", scrub: 0.6 },
+        scrollTrigger: { trigger: list, start: axis === "x" ? "top 70%" : "top 75%", end: axis === "x" ? "bottom 45%" : "bottom 60%", scrub: SCRUB },
       });
-      tl.fromTo(q("[data-line]"), axis === "x" ? { scaleX: 0 } : { scaleY: 0 }, { scaleX: 1, scaleY: 1, ease: "none", duration: 4 }, 0);
+      tl.fromTo(q("[data-line]"), axis === "x" ? { scaleX: 0 } : { scaleY: 0 }, { scaleX: 1, scaleY: 1, ease: EASE.scroll, duration: 4 }, 0);
       q("[data-step]").forEach((step, i) => {
         tl.to(step.querySelector("[data-node]"), { backgroundColor: "#f7f5ed", scale: 1, duration: 0.3 }, i * 1.1)
           .fromTo(step.querySelector("[data-node-ring]"), { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4 }, i * 1.1)

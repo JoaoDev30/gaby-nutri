@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { SplitText } from "./ui/SplitText";
 import { gsap, ScrollTrigger, MOTION_OK, DESKTOP, useIsoLayoutEffect } from "@/lib/gsap";
+import { EASE } from "@/lib/motion";
 
 /**
  * As imagens seguem a sequência do vídeo do hero — dos ingredientes separados ao prato composto —
@@ -65,7 +66,7 @@ export function ServicesSection() {
         { scaleY: 0 },
         {
           scaleY: 1,
-          ease: "none",
+          ease: EASE.scroll,
           scrollTrigger: { trigger: q("[data-list]")[0], start: "top 55%", end: "bottom 55%", scrub: true },
         },
       );

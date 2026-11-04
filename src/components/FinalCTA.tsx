@@ -6,6 +6,7 @@ import { SplitText } from "./ui/SplitText";
 import { WhatsAppCTA } from "./ui/CTAButton";
 import { Sprig, Leaf } from "./ui/Botanical";
 import { gsap, MOTION_OK, useIsoLayoutEffect } from "@/lib/gsap";
+import { EASE, SCRUB } from "@/lib/motion";
 
 /** 09 — Conclusão da jornada: o prato composto (último quadro do vídeo) se abre em círculo. */
 export function FinalCTA() {
@@ -20,14 +21,14 @@ export function FinalCTA() {
         { clipPath: "circle(18% at 50% 50%)" },
         {
           clipPath: "circle(50% at 50% 50%)",
-          ease: "none",
-          scrollTrigger: { trigger: root.current, start: "top 85%", end: "center 55%", scrub: 0.8 },
+          ease: EASE.scroll,
+          scrollTrigger: { trigger: root.current, start: "top 85%", end: "center 55%", scrub: SCRUB },
         },
       );
       gsap.fromTo(
         q("[data-orb] img"),
         { scale: 1.25, rotate: -6 },
-        { scale: 1, rotate: 0, ease: "none", scrollTrigger: { trigger: root.current, start: "top 85%", end: "center 55%", scrub: 0.8 } },
+        { scale: 1, rotate: 0, ease: EASE.scroll, scrollTrigger: { trigger: root.current, start: "top 85%", end: "center 55%", scrub: SCRUB } },
       );
     });
     return () => mm.revert();

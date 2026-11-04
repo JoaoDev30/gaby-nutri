@@ -55,7 +55,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="pt-BR" className={`${fraunces.variable} ${manrope.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionBoot }} />
-        <link rel="preload" as="image" href="/media/hero-poster.jpg" fetchPriority="high" />
       </head>
       <body>{children}</body>
     </html>

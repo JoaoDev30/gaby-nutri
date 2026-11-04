@@ -106,7 +106,13 @@ body {
 .motion [data-split] .split-word > span { transform: translateY(110%); }
 .motion [data-fade] { opacity: 0; transform: translateY(18px); }
 .motion [data-clip] { clip-path: inset(100% 0 0 0); }
-.motion [data-hero] { opacity: 0; }
+.motion :is([data-hero="media"], [data-hero="eyebrow"], [data-hero="copy"], [data-hero="aside"]) { opacity: 0; }
+
+/* Hero scroll-driven: momentos 2–4 só existem com movimento; sem ele, o hero é estático. */
+.motion [data-moment]:not([data-moment="1"]) { opacity: 0; pointer-events: none; }
+html:not(.motion) [data-moment]:not([data-moment="1"]) { display: none; }
+.motion [data-still="final"], html:not(.motion) [data-still="first"] { display: none; }
+html:not(.motion) :is([data-hero="chapters"], [data-hero="cue"]) { display: none; }
 
 /* Desenho de traços botânicos */
 .draw path, .draw circle, .draw line { stroke-dasharray: 1; stroke-dashoffset: 0; }
@@ -141,6 +147,8 @@ body {
 }
 
 .motion [data-strike] { stroke-dashoffset: 1; }
+/* Texto que se preenche: palavras visíveis desde o início, só a cor evolui. */
+.motion [data-fill] [data-split] .split-word > span { transform: none; color: rgb(32 42 34 / 0.18); }
 
 @keyframes scrollcue {
   0% { transform: translateY(-100%); }

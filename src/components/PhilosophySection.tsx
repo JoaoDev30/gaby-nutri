@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import { SplitText } from "./ui/SplitText";
 import { gsap, MOTION_OK, useIsoLayoutEffect } from "@/lib/gsap";
+import { DUR, EASE, START, STAGGER } from "@/lib/motion";
 
 const concepts = [
   { n: "i.", word: "Individualidade", line: "Seu plano parte da sua história — não de um modelo pronto.", indent: "lg:pl-0" },
@@ -21,10 +22,10 @@ export function PhilosophySection() {
     mm.add(MOTION_OK, () => {
       const q = gsap.utils.selector(root);
       q("[data-concept]").forEach((row) => {
-        const tl = gsap.timeline({ scrollTrigger: { trigger: row, start: "top 82%", once: true } });
-        tl.from(row.querySelector("[data-rule]"), { scaleX: 0, transformOrigin: "left", duration: 1.2, ease: "expo.inOut" })
-          .from(row.querySelector("[data-word]"), { clipPath: "inset(0 100% 0 0)", x: -20, duration: 1.3, ease: "expo.out" }, 0.25)
-          .from(row.querySelectorAll("[data-meta]"), { opacity: 0, y: 10, duration: 0.8, stagger: 0.08 }, 0.5);
+        const tl = gsap.timeline({ scrollTrigger: { trigger: row, start: START, once: true } });
+        tl.from(row.querySelector("[data-rule]"), { scaleX: 0, transformOrigin: "left", duration: DUR.slow, ease: EASE.inOut })
+          .from(row.querySelector("[data-word]"), { clipPath: "inset(0 100% 0 0)", x: -20, duration: DUR.slow, ease: EASE.out }, 0.25)
+          .from(row.querySelectorAll("[data-meta]"), { opacity: 0, y: 10, duration: DUR.base, stagger: STAGGER.items, ease: EASE.soft }, 0.5);
       });
     });
     return () => mm.revert();

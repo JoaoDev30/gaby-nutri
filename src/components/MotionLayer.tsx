@@ -1,6 +1,7 @@
 "use client";
 
 import { gsap, ScrollTrigger, MOTION_OK, useIsoLayoutEffect } from "@/lib/gsap";
+import { DUR, EASE, START, STAGGER } from "@/lib/motion";
 
 /**
  * Animações genéricas guiadas por data-attributes:
@@ -21,25 +22,25 @@ export function MotionLayer() {
         gsap.to(el.querySelectorAll(".split-word > span"), {
           yPercent: 0,
           y: 0,
-          duration: 1.1,
-          ease: "expo.out",
-          stagger: 0.045,
-          scrollTrigger: { trigger: el, start: "top 88%", once: true },
+          duration: DUR.reveal,
+          ease: EASE.out,
+          stagger: STAGGER.words,
+          scrollTrigger: { trigger: el, start: START, once: true },
         });
       });
 
       ScrollTrigger.batch("[data-fade]", {
-        start: "top 90%",
+        start: START,
         once: true,
         onEnter: (els) =>
-          gsap.to(els, { opacity: 1, y: 0, duration: 1, stagger: 0.09, ease: "power2.out" }),
+          gsap.to(els, { opacity: 1, y: 0, duration: DUR.base, stagger: STAGGER.items, ease: EASE.soft }),
       });
 
       gsap.utils.toArray<HTMLElement>("[data-clip]").forEach((el) => {
         const img = el.querySelector("img");
-        const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: "top 85%", once: true } });
-        tl.to(el, { clipPath: "inset(0% 0 0 0)", duration: 1.4, ease: "expo.inOut" });
-        if (img) tl.from(img, { scale: 1.18, duration: 1.8, ease: "expo.out" }, 0.1);
+        const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: START, once: true } });
+        tl.to(el, { clipPath: "inset(0% 0 0 0)", duration: DUR.slow, ease: EASE.inOut });
+        if (img) tl.from(img, { scale: 1.15, duration: DUR.slow + 0.4, ease: EASE.out }, 0.1);
       });
 
       gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {
@@ -49,7 +50,7 @@ export function MotionLayer() {
           { yPercent: -amount * 50 },
           {
             yPercent: amount * 50,
-            ease: "none",
+            ease: EASE.scroll,
             scrollTrigger: { trigger: el.parentElement ?? el, start: "top bottom", end: "bottom top", scrub: true },
           },
         );
@@ -58,7 +59,7 @@ export function MotionLayer() {
       gsap.utils.toArray<SVGElement>(".draw[data-draw]").forEach((svg) => {
         gsap.to(svg.querySelectorAll("path, circle, line"), {
           strokeDashoffset: 0,
-          ease: "none",
+          ease: EASE.scroll,
           stagger: 0.08,
           scrollTrigger: { trigger: svg, start: "top 92%", end: "bottom 45%", scrub: 1 },
         });

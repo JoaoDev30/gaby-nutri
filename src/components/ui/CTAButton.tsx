@@ -33,7 +33,7 @@ export function WhatsAppCTA({
       rel="noopener noreferrer"
       onClick={() => track("cta_whatsapp_click", { placement })}
       data-cta={placement}
-      className={`group relative inline-flex items-center justify-center gap-3 rounded-full font-semibold tracking-[-0.01em] transition-[background-color,box-shadow,transform] duration-300 ease-[var(--ease-soft)] active:scale-[0.98] ${
+      className={`group relative inline-flex items-center justify-center gap-3 whitespace-nowrap rounded-full font-semibold tracking-[-0.01em] transition-[background-color,box-shadow,transform] duration-300 ease-[var(--ease-soft)] active:scale-[0.98] ${
         size === "lg" ? "h-14 px-7 text-[0.98rem]" : "h-11 px-5 text-sm"
       } ${styles[variant]} ${className}`}
     >
