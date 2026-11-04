@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { navItems, siteConfig } from "@/config/site";
 import { WhatsAppCTA } from "./ui/CTAButton";
@@ -72,11 +73,17 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto flex h-[var(--header-h)] max-w-[1440px] items-center justify-between gap-6 px-[var(--gutter)]">
-        <a href="#inicio" className="group relative z-10 flex flex-col leading-none" aria-label={`${siteConfig.name}, ${siteConfig.role} — início`}>
-          <span className="font-serif text-[1.35rem] whitespace-nowrap tracking-[-0.02em] text-forest-deep [font-variation-settings:'SOFT'_100,'opsz'_40]">
-            Gabrielly <em className="font-light">Fernandes</em>
-          </span>
-          <span className="mt-1 text-[0.62rem] font-semibold tracking-[0.28em] text-sage-deep uppercase">Nutricionista</span>
+        <a href="#inicio" className="relative z-10 block shrink-0" aria-label={`${siteConfig.name}, ${siteConfig.role} — início`}>
+          {/* Assinatura horizontal da marca (vetor, sem dependência de fonte) */}
+          <Image
+            src="/brand/logo-horizontal-green.svg"
+            alt=""
+            width={729}
+            height={102}
+            priority
+            unoptimized
+            className="h-9 w-auto sm:h-10"
+          />
         </a>
 
         <nav aria-label="Principal" className="hidden lg:block">
