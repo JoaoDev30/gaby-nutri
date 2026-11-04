@@ -29,7 +29,7 @@ O MP4 original do Higgsfield (1920×1080, 24 fps, 12 s, H.264) tem **um único k
 | Opção | Desktop | Mobile |
 | --- | --- | --- |
 | MP4 só com keyframes (`-g 1`) | 7,8 MB | 3,6 MB |
-| **Sequência WebP em canvas (escolhida)** | **4,0 MB** (107 quadros, 1600×900) | **3,4 MB** (107 quadros, 860×860) |
+| **Sequência WebP em canvas (escolhida)** | **4,0 MB** (107 quadros, 1600×900) | **3,4 MB** (107 quadros, 1000×804) |
 
 Os quadros carregam de forma progressiva (1º quadro → último → espaçados → todos); enquanto um não chegou, o canvas mostra o vizinho mais próximo. Com economia de dados/2G, só 1 a cada 4 quadros é baixado. Os ~3 s finais do vídeo são praticamente estáticos, por isso a sequência vai até 8,8 s e termina no último quadro real.
 
@@ -37,9 +37,9 @@ Regerar (sem alterar o original em `assets/`):
 
 ```bash
 ffmpeg -i assets/hero-v2-alimentos.mp4 -t 8.8 -vf "select='not(mod(n\,2))',scale=1600:900" -fps_mode vfr -c:v libwebp -quality 66 -compression_level 6 -start_number 0 public/frames/desktop/f%03d.webp
-ffmpeg -i assets/hero-v2-alimentos.mp4 -t 8.8 -vf "select='not(mod(n\,2))',crop=1080:1080:740:0,scale=860:860" -fps_mode vfr -c:v libwebp -quality 60 -compression_level 6 -start_number 0 public/frames/mobile/f%03d.webp
+ffmpeg -i assets/hero-v2-alimentos.mp4 -t 8.8 -vf "select='not(mod(n\,2))',crop=1344:1080:576:0,scale=1000:804:flags=lanczos" -fps_mode vfr -c:v libwebp -quality 62 -compression_level 6 -start_number 0 public/frames/mobile/f%03d.webp
 ffmpeg -sseof -0.05 -i assets/hero-v2-alimentos.mp4 -frames:v 1 -vf scale=1600:900 -c:v libwebp -quality 66 public/frames/desktop/f106.webp
-ffmpeg -sseof -0.05 -i assets/hero-v2-alimentos.mp4 -frames:v 1 -vf "crop=1080:1080:740:0,scale=860:860" -c:v libwebp -quality 60 public/frames/mobile/f106.webp
+ffmpeg -sseof -0.05 -i assets/hero-v2-alimentos.mp4 -frames:v 1 -vf "crop=1344:1080:576:0,scale=1000:804:flags=lanczos" -c:v libwebp -quality 62 public/frames/mobile/f106.webp
 ```
 
 Se o número de quadros mudar, ajuste `count` em `HERO_FRAMES`.

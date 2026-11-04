@@ -156,7 +156,8 @@ const pad = (i: number) => String(i).padStart(3, "0");
 
 export const HERO_FRAMES = {
   desktop: { url: (i: number) => `/frames/desktop/f${pad(i)}.webp`, count: 107, focusX: 0.72, focusY: 0.5 },
-  mobile: { url: (i: number) => `/frames/mobile/f${pad(i)}.webp`, count: 107, focusX: 0.5, focusY: 0.5 },
+  /** 1000×804: recorte do vídeo (x 30–100%, altura toda) que contém a composição inteira em todos os quadros. */
+  mobile: { url: (i: number) => `/frames/mobile/f${pad(i)}.webp`, count: 107, focusX: 0.5, focusY: 0.45 },
 } satisfies Record<string, FrameSet>;
 
 /** Prato que muda de refeição (equilíbrio → salmão → massa → café da manhã), 120 quadros 4:3. */

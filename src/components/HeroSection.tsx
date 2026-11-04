@@ -35,7 +35,11 @@ export function HeroSection() {
         if (!motion) return;
         const q = gsap.utils.selector(root);
         const canvas = canvasRef.current!;
-        const seq = new FrameSequence(canvas, desktop ? HERO_FRAMES.desktop : HERO_FRAMES.mobile);
+        // Abaixo de 1024px a mídia é uma faixa no topo. Em faixas bem largas (tablet em pé) os
+        // quadros 16:9 do desktop enquadram melhor; em celular, o recorte mais quadrado.
+        const box = canvas.getBoundingClientRect();
+        const wide = desktop || box.width / Math.max(1, box.height) > 1.5;
+        const seq = new FrameSequence(canvas, wide ? HERO_FRAMES.desktop : HERO_FRAMES.mobile);
         seq.onFirstFrame = () => gsap.to(canvas, { opacity: 1, duration: 0.4 });
         seq.setProgress(0);
         const ro = new ResizeObserver(() => seq.resize());
@@ -106,9 +110,15 @@ export function HeroSection() {
 
         /* ── Saída (como no site do Diego): sem máscara. O vídeo segue até o último quadro,
               o texto sobe e some, e a seção seguinte entra pela rolagem natural ao soltar o pin. ── */
+        // No mobile o texto fica abaixo da imagem: sumir com ele deixaria meia tela vazia.
+        // Lá a frase final permanece e sai junto com a seção quando o pin solta.
         const T = 1 - V;
-        tl.to(q("[data-moment='4'], [data-hero='copy']"), { opacity: 0, y: -70, duration: T * 0.8, ease: "power2.in" }, V);
-        tl.to(q("[data-hero='eyebrow'], [data-hero='chapters']"), { opacity: 0, duration: T * 0.6 }, V);
+        if (desktop) {
+          tl.to(q("[data-moment='4'], [data-hero='copy']"), { opacity: 0, y: -70, duration: T * 0.8, ease: "power2.in" }, V);
+          tl.to(q("[data-hero='eyebrow'], [data-hero='chapters']"), { opacity: 0, duration: T * 0.6 }, V);
+        } else {
+          tl.to({}, { duration: T }, V); // mantém a imagem final parada um instante antes de soltar
+        }
 
         return () => {
           ro.disconnect();
@@ -127,7 +137,7 @@ export function HeroSection() {
         {/* ── Mídia: faixa superior no mobile, tela cheia no desktop ── */}
         <div
           data-hero="media"
-          className="absolute inset-x-0 top-0 h-[47svh] lg:inset-0 lg:h-full"
+          className="absolute inset-x-0 top-[var(--header-h)] h-[44svh] [@media(max-height:620px)_and_(max-width:767px)]:h-[34svh] md:h-[min(56.25vw,46svh)] lg:inset-0 lg:h-full"
         >
           {/* Poster = 1º quadro (LCP imediato). Com movimento reduzido: composição final, estática. */}
           <picture data-still="first" className="absolute inset-0">
@@ -153,8 +163,8 @@ export function HeroSection() {
           <canvas ref={canvasRef} aria-hidden className="absolute inset-0 h-full w-full opacity-0" />
 
           {/* Integração com o creme + legibilidade */}
-          <div data-hero="fade" aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-cream via-cream/50 to-transparent" />
-          <div data-hero="fade" aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-cream via-cream/70 to-transparent lg:h-1/5" />
+          <div data-hero="fade" aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-8 bg-gradient-to-b lg:h-28 from-cream via-cream/50 to-transparent" />
+          <div data-hero="fade" aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-1/5 bg-gradient-to-t from-cream via-cream/70 to-transparent" />
           <div
             data-hero="veil"
             aria-hidden
@@ -163,7 +173,7 @@ export function HeroSection() {
         </div>
 
         {/* ── Conteúdo ── */}
-        <div className="absolute inset-x-0 top-[42svh] bottom-0 z-10 mx-auto flex w-full max-w-[1440px] flex-col px-[var(--gutter)] lg:inset-y-0 lg:top-0 lg:justify-center lg:pt-[var(--header-h)]">
+        <div className="absolute inset-x-0 top-[calc(var(--header-h)+42svh)] [@media(max-height:620px)_and_(max-width:767px)]:top-[calc(var(--header-h)+32svh)] bottom-0 z-10 mx-auto flex w-full max-w-[1440px] flex-col px-[var(--gutter)] md:top-[calc(var(--header-h)+min(56.25vw,46svh))] md:justify-center md:pb-[6svh] lg:inset-y-0 lg:top-0 lg:justify-center lg:pt-[var(--header-h)]">
           <div className="w-full max-w-[36rem] lg:max-w-[min(44vw,40rem)]">
             <p data-hero="eyebrow" className="eyebrow mb-4 flex items-center gap-3 text-sage-deep lg:mb-7">
               <span aria-hidden className="h-px w-8 bg-sage-deep/60" />
