@@ -1,7 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import { useRef } from "react";
+import { useRef, type MouseEvent } from "react";
 import { SplitText } from "./ui/SplitText";
 import { gsap, MOTION_OK, useIsoLayoutEffect } from "@/lib/gsap";
 import { DUR, EASE, START, STAGGER } from "@/lib/motion";
@@ -13,7 +12,19 @@ const concepts = [
   { n: "iv.", word: "Qualidade de vida", line: "Comer bem para viver melhor — dentro e fora do prato.", indent: "lg:pl-[22%]" },
 ];
 
-/** 03 — O cuidado é individual: índice editorial com palavras-conceito e fotografias intercaladas. */
+/**
+ * Luz que segue o mouse: o JS só grava a posição do cursor em --x/--y na linha sob o mouse;
+ * o brilho é um gradiente do CSS (.luz em globals.css). Sem hover (toque), nada acontece.
+ */
+function moveLight(ev: MouseEvent<HTMLOListElement>) {
+  const row = (ev.target as HTMLElement).closest<HTMLElement>("[data-concept]");
+  if (!row) return;
+  const r = row.getBoundingClientRect();
+  row.style.setProperty("--x", `${ev.clientX - r.left}px`);
+  row.style.setProperty("--y", `${ev.clientY - r.top}px`);
+}
+
+/** 03 — O cuidado é individual: índice editorial com palavras-conceito e luz que segue o mouse. */
 export function PhilosophySection() {
   const root = useRef<HTMLElement>(null);
 
@@ -51,9 +62,9 @@ export function PhilosophySection() {
         </div>
 
         <div className="relative mt-16 grid grid-cols-12 gap-x-6 lg:mt-28">
-          <ol className="col-span-12 lg:col-span-8">
+          <ol className="col-span-12" onMouseMove={moveLight}>
             {concepts.map((c) => (
-              <li key={c.word} data-concept className={`relative pt-6 pb-8 lg:pt-8 lg:pb-10 ${c.indent}`}>
+              <li key={c.word} data-concept className={`luz relative pt-6 pb-8 lg:pt-8 lg:pb-10 ${c.indent}`}>
                 <span data-rule aria-hidden className="absolute inset-x-0 top-0 block h-px bg-forest/20" />
                 <div className="flex items-baseline gap-4 lg:gap-6">
                   <span data-meta className="serif-italic w-8 shrink-0 text-base text-sage-deep lg:text-lg">{c.n}</span>
@@ -69,37 +80,6 @@ export function PhilosophySection() {
               </li>
             ))}
           </ol>
-
-          {/* Fotografias intercaladas, fora da grade óbvia */}
-          <div className="col-span-12 mt-10 grid grid-cols-12 gap-6 lg:col-span-4 lg:mt-24 lg:flex lg:flex-col lg:gap-0">
-            <figure className="col-span-7">
-              <div data-clip className="relative aspect-[3/4] overflow-hidden rounded-[2px]">
-                <div data-parallax="0.1" className="absolute -inset-y-[6%] inset-x-0">
-                  <Image
-                    src="/media/frutas-suspensas.jpg"
-                    alt="Frutas frescas — maçã, laranja, uvas, pera e morangos — suspensas sobre uma cesta de palha"
-                    fill
-                    sizes="(min-width: 1024px) 28vw, 58vw"
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-              <figcaption className="serif-italic mt-3 text-sm text-ink-soft" data-fade>
-                Não existe um único jeito certo de comer bem.
-              </figcaption>
-            </figure>
-            <figure className="relative col-span-5 self-end lg:-mt-24 lg:-ml-[28%] lg:w-[52%] lg:self-start">
-              <div data-clip className="relative aspect-square overflow-hidden rounded-full">
-                <Image
-                  src="/media/cesta-frutas.jpg"
-                  alt="Cesta de palha com maçã, laranja, uvas e morangos"
-                  fill
-                  sizes="(min-width: 1024px) 18vw, 40vw"
-                  className="object-cover"
-                />
-              </div>
-            </figure>
-          </div>
         </div>
       </div>
     </section>
