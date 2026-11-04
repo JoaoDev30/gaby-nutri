@@ -11,8 +11,8 @@ import { track } from "@/lib/analytics";
 /**
  * HERO — vídeo controlado pelo scroll.
  * A seção fica fixa (pin) enquanto o progresso da rolagem vira o quadro exibido (0 → 100%).
- * Texto e imagem compartilham a mesma timeline; no final, uma máscara circular (efeito 05)
- * transforma a composição em "prato" e entrega a narrativa para a seção seguinte.
+ * Texto e imagem compartilham a mesma timeline; no final o texto sobe e some, o vídeo
+ * termina no último quadro e a seção seguinte entra pela rolagem natural.
  */
 
 const chapters = ["Comer bem", "Além das restrições", "Seu equilíbrio", "Resultados reais"];
@@ -70,8 +70,8 @@ export function HeroSection() {
           },
         });
 
-        // Quadros: progresso 0→1 mapeado linearmente para o 1º → último quadro.
-        tl.to(frame, { p: 1, duration: VIDEO_END, onUpdate: () => seq.setProgress(frame.p) }, 0);
+        // Quadros: progresso 0→1 mapeado para o 1º → último quadro, até o fim do hero.
+        tl.to(frame, { p: 1, duration: 1, ease: "none", onUpdate: () => seq.setProgress(frame.p) }, 0);
 
         // Indicador de capítulos (linha que se desenha — efeito 07)
         q("[data-chapter-fill]").forEach((el, i) => {
@@ -104,16 +104,11 @@ export function HeroSection() {
         inn(4, V * 0.76);
 
 
-        /* ── Saída: máscara circular revela o fundo e o prato composto vira um "orbe" ── */
+        /* ── Saída (como no site do Diego): sem máscara. O vídeo segue até o último quadro,
+              o texto sobe e some, e a seção seguinte entra pela rolagem natural ao soltar o pin. ── */
         const T = 1 - V;
-        tl.fromTo(
-          q("[data-hero='media']"),
-          { clipPath: desktop ? "circle(110% at 71% 52%)" : "circle(110% at 50% 52%)" },
-          { clipPath: desktop ? "circle(24% at 71% 52%)" : "circle(33% at 50% 52%)", duration: T, ease: "power2.inOut" },
-          V,
-        );
-        tl.to(q("[data-hero='veil'], [data-hero='fade']"), { opacity: 0, duration: T * 0.6 }, V);
-        tl.to(q("[data-hero='chapters']"), { opacity: 0, duration: T * 0.5 }, V);
+        tl.to(q("[data-moment='4'], [data-hero='copy']"), { opacity: 0, y: -70, duration: T * 0.8, ease: "power2.in" }, V);
+        tl.to(q("[data-hero='eyebrow'], [data-hero='chapters']"), { opacity: 0, duration: T * 0.6 }, V);
 
         return () => {
           ro.disconnect();
@@ -132,7 +127,7 @@ export function HeroSection() {
         {/* ── Mídia: faixa superior no mobile, tela cheia no desktop ── */}
         <div
           data-hero="media"
-          className="absolute inset-x-0 top-0 h-[47svh] will-change-[clip-path] lg:inset-0 lg:h-full"
+          className="absolute inset-x-0 top-0 h-[47svh] lg:inset-0 lg:h-full"
         >
           {/* Poster = 1º quadro (LCP imediato). Com movimento reduzido: composição final, estática. */}
           <picture data-still="first" className="absolute inset-0">
