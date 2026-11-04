@@ -158,3 +158,11 @@ export const HERO_FRAMES = {
   desktop: { url: (i: number) => `/frames/desktop/f${pad(i)}.webp`, count: 107, focusX: 0.72, focusY: 0.5 },
   mobile: { url: (i: number) => `/frames/mobile/f${pad(i)}.webp`, count: 107, focusX: 0.5, focusY: 0.5 },
 } satisfies Record<string, FrameSet>;
+
+/** Prato girando 360° no sentido horário (96 quadros, o último ≈ 356°). */
+export const PLATE_FRAMES = {
+  url: (i: number) => `/frames/prato/f${pad(i)}.webp`,
+  count: 96,
+  focusX: 0.5,
+  focusY: 0.5,
+} satisfies FrameSet;

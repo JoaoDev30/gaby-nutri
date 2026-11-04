@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { HeroSection } from "@/components/HeroSection";
 import { StorySection } from "@/components/StorySection";
 import { PhilosophySection } from "@/components/PhilosophySection";
+import { PlateSection } from "@/components/PlateSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { AboutSection } from "@/components/AboutSection";
 import { PatientJourney } from "@/components/PatientJourney";
@@ -38,6 +39,7 @@ export default function Home() {
         <HeroSection />
         <StorySection />
         <PhilosophySection />
+        <PlateSection />
         <ServicesSection />
         <AboutSection />
         <PatientJourney />
